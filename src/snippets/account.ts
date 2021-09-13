@@ -3,9 +3,13 @@ import {strPatt} from './enums';
 interface Iaccnt {
     cValid(str: string | undefined, min: number, max: number, options?: string[]): {isValid: boolean; errStr: string};
     confirmPw(pw: string | undefined, pwCf: string | undefined): {isValid: boolean; errStr: string};
+    emailValid(email: string): boolean;
 }
 
 const account: Iaccnt = {
+    /**
+     * options: 'special', 'number', 'capital'
+     */
     cValid: function (str, min, max, options?) {
         let isValid = true;
         let errStr = '';
@@ -47,6 +51,9 @@ const account: Iaccnt = {
 
         return {isValid, errStr};
     },
+    /**
+     * check password validation
+     */
     confirmPw: function (pw, pwCf) {
         if (!pw) {
             return {isValid: false, errStr: 'EMPTY_PASSWORD'};
@@ -61,6 +68,13 @@ const account: Iaccnt = {
         }
 
         return {isValid: true, errStr: ''};
+    },
+    /**
+     * check email validation
+     */
+    emailValid: function (email) {
+        const regex = /[a-z0-9]+@[a-z0-9]+\.[a-z0-9]+/;
+        return regex.test(email);
     },
 };
 
