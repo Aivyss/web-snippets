@@ -84,5 +84,5 @@ const file: IFile = {
     },
 };
 
-export {file};
+export default file;
 export {IFile};

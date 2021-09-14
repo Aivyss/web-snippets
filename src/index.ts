@@ -1,13 +1,14 @@
 import account, {Iaccnt} from './snippets/account';
 import strings, {Istrings} from './snippets/strings';
 import numbers, {INumbers} from './snippets/numbers';
-import {strPatt} from './snippets/enums';
+import files, {IFile} from './snippets/file';
+import {strPatt, fileUnit} from './snippets/enums';
 
 // * objects
-export {account, strings, numbers};
+export {account, strings, numbers, files};
 
 // * interfaces
-export {Iaccnt, Istrings, INumbers};
+export {Iaccnt, Istrings, INumbers, IFile};
 
 // * Enums
-export {strPatt};
+export {strPatt, fileUnit};

@@ -1,109 +1,103 @@
 interface IMapCallback<T> {
-    (param: T, index: number, self: T[]): any;
+    (param: T, index?: number, self?: T[]): any;
 }
 
 interface IForEachCallback<T> {
     (param: T): void;
 }
-export default class Deque<T> {
-    deque: T[] = []; // deque
-    capacity = 0; // deque capacity
-    isLimited = false; // deck capacity is limited?
+export {IDeque, IMapCallback, IForEachCallback};
 
-    constructor(capacity: number | undefined) {
+interface IDeque<T> {
+    capacity: number;
+    push(...param: T[]): void;
+    unshift(...param: T[]): void;
+    pop(): T;
+    shift(): T;
+    clear(): void;
+    slice(start?: number, end?: number): T[];
+    map(callback: IMapCallback<T>): any[];
+    forEach(callback: IForEachCallback<T>): void;
+    rotation(num: number): void;
+    get deque(): T[];
+    get isLimited(): boolean;
+}
+export default class Deque<T> implements IDeque<T> {
+    private _deque: T[] = []; // _deque
+    capacity = 0; // _deque capacity
+    private _isLimited = false; // deck capacity is limited?
+
+    constructor(capacity?: number) {
         if (capacity) {
             this.capacity = capacity;
-            this.isLimited = true;
+            this._isLimited = true;
         }
     }
 
-    push(param: T | T[]) {
-        if (this.isLimited) {
-            if (this.deque.length < this.capacity) {
-                if (param instanceof Array) {
-                    if (param.length + this.deque.length < this.capacity) {
-                        this.deque = [...this.deque, ...param];
-                        return true;
-                    } else {
-                        throw 'CAPACITY_EXCEED_EXCEPTION';
-                    }
-                } else {
-                    this.deque.push(param);
-                    return true;
-                }
+    push(...param: T[]) {
+        const capacityCondition =
+            this._deque.length < this.capacity && param.length + this._deque.length < this.capacity;
+        if (this._isLimited) {
+            if (capacityCondition) {
+                this._deque.push(...param);
+                return true;
             } else {
                 throw 'CAPACITY_EXCEED_EXCEPTION';
             }
         } else {
-            if (param instanceof Array) {
-                this.deque = [...this.deque, ...param];
-                return true;
-            } else {
-                this.deque.push(param);
-                return true;
-            }
+            this._deque.push(...param);
         }
     }
-    pushLeft(param: T | T[]) {
-        if (this.isLimited) {
-            if (this.deque.length < this.capacity) {
-                if (param instanceof Array) {
-                    if (param.length + this.deque.length < this.capacity) {
-                        this.deque = [...param, ...this.deque];
-                        return true;
-                    } else {
-                        throw 'CAPACITY_EXCEED_EXCEPTION';
-                    }
-                } else {
-                    this.deque = [param, ...this.deque];
-                    return true;
-                }
+    unshift(...param: T[]) {
+        const capacityCondition =
+            this._deque.length < this.capacity && param.length + this._deque.length < this.capacity;
+
+        if (this._isLimited) {
+            if (capacityCondition) {
+                this._deque.unshift(...param.reverse());
+                return true;
             } else {
                 throw 'CAPACITY_EXCEED_EXCEPTION';
             }
         } else {
-            if (param instanceof Array) {
-                this.deque = [...param, ...this.deque];
-                return true;
-            } else {
-                this.deque = [param, ...this.deque];
-                return true;
-            }
+            this._deque.unshift(...param.reverse());
         }
     }
     pop() {
         let returnVal: T;
-        returnVal = this.deque.pop();
+        returnVal = this._deque.pop();
 
         return returnVal;
     }
-    popLeft() {
-        let returnVal: T;
-        this.deque.reverse();
-        returnVal = this.deque.pop();
-        this.deque.reverse();
-
-        return returnVal;
+    shift() {
+        return this._deque.shift();
     }
     clear() {
-        this.deque = [] as T[];
+        this._deque = [] as T[];
     }
     slice(start?: number, end?: number) {
-        return this.deque.slice(start, end);
+        return this._deque.slice(start, end);
     }
     map(callback: IMapCallback<T>) {
-        return this.deque.map(callback);
+        return this._deque.map(callback);
     }
     forEach(callback: IForEachCallback<T>) {
-        this.deque.forEach(callback);
+        this._deque.forEach(callback);
     }
     rotation(num: number) {
+        const newDeque: T[] = [];
+
         if (num > 0) {
             // clockwise
-            this.deque = [...this.deque.slice(-num), ...this.deque.slice(0, this.deque.length - num)];
+            this._deque = newDeque.concat(this.deque.slice(-num), this.deque.slice(0, num));
         } else {
             // counter clockwise
-            this.deque = [...this.deque.slice(-num), ...this.deque.slice(0, -num)];
+            this._deque = newDeque.concat(this.deque.slice(num), this.deque.slice(0, num + this.deque.length)) as T[];
         }
+    }
+    get deque() {
+        return this._deque;
+    }
+    get isLimited() {
+        return this._isLimited;
     }
 }
