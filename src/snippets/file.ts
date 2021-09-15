@@ -1,7 +1,7 @@
 import {imageExt, fileUnit} from './enums';
 
 interface IFile {
-    imageValid(file: File, limitSize?: string): {isValid: boolean; errMassage: string};
+    imageValid(file: File, limitSize?: string): {isValid: boolean; errMessage: string};
     rescaleSize(size: string, rescaleUnit: string): string;
 }
 const file: IFile = {
@@ -11,11 +11,11 @@ const file: IFile = {
         const ext = regex.exec(fileName)![0];
         const size = file.size;
         let isValid: boolean;
-        let errorMassage: string;
+        let errorMessage: string;
 
         if (limitSize) {
             const limit = parseInt(this.rescaleSize(limitSize, 'byte').split('byte')[0]);
-            if (size > limit) return {isValid: false, errMassage: 'EXCEED_LIMIT_SIZE'};
+            if (size > limit) return {isValid: false, errMessage: 'EXCEED_LIMIT_SIZE'};
         }
 
         switch (ext.toUpperCase()) {
@@ -25,14 +25,14 @@ const file: IFile = {
             case imageExt.JPG:
             case imageExt.PNG:
                 isValid = true;
-                errorMassage = '';
+                errorMessage = '';
                 break;
             default:
                 isValid = false;
-                errorMassage = 'NOT_IMAGE_FILE';
+                errorMessage = 'NOT_IMAGE_FILE';
         }
 
-        return {isValid: isValid, errMassage: errorMassage!};
+        return {isValid: isValid, errMessage: errorMessage!};
     },
 
     rescaleSize(size, rescaleUnit) {
