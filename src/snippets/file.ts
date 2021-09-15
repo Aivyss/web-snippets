@@ -18,7 +18,7 @@ const file: IFile = {
             if (size > limit) return {isValid: false, errMassage: 'EXCEED_LIMIT_SIZE'};
         }
 
-        switch (ext) {
+        switch (ext.toUpperCase()) {
             case imageExt.GIF:
             case imageExt.JFIF:
             case imageExt.JPEG:
