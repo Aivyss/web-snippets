@@ -8,11 +8,11 @@ var file = {
         var ext = regex.exec(fileName)[0];
         var size = file.size;
         var isValid;
-        var errorMassage;
+        var errorMessage;
         if (limitSize) {
             var limit = parseInt(this.rescaleSize(limitSize, 'byte').split('byte')[0]);
             if (size > limit)
-                return { isValid: false, errMassage: 'EXCEED_LIMIT_SIZE' };
+                return { isValid: false, errMessage: 'EXCEED_LIMIT_SIZE' };
         }
         switch (ext.toUpperCase()) {
             case enums_1.imageExt.GIF:
@@ -21,13 +21,13 @@ var file = {
             case enums_1.imageExt.JPG:
             case enums_1.imageExt.PNG:
                 isValid = true;
-                errorMassage = '';
+                errorMessage = '';
                 break;
             default:
                 isValid = false;
-                errorMassage = 'NOT_IMAGE_FILE';
+                errorMessage = 'NOT_IMAGE_FILE';
         }
-        return { isValid: isValid, errMassage: errorMassage };
+        return { isValid: isValid, errMessage: errorMessage };
     },
     rescaleSize: function (size, rescaleUnit) {
         var numberRegex = /[0-9]+/;

@@ -17,7 +17,7 @@ const account: Iaccnt = {
         if (!str) return {isValid: !isValid, errStr: 'EMPTY_STRING'};
 
         if (str.length < min || str.length > max) {
-            isValid = true;
+            isValid = false;
         }
 
         if (options) {
