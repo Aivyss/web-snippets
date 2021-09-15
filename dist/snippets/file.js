@@ -14,7 +14,7 @@ var file = {
             if (size > limit)
                 return { isValid: false, errMassage: 'EXCEED_LIMIT_SIZE' };
         }
-        switch (ext) {
+        switch (ext.toUpperCase()) {
             case enums_1.imageExt.GIF:
             case enums_1.imageExt.JFIF:
             case enums_1.imageExt.JPEG:
