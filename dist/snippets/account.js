@@ -1,40 +1,33 @@
-import {strPatt} from './enums';
-
-interface Iaccnt {
-    cValid(str: string | undefined, min: number, max: number, options?: string[]): {isValid: boolean; errStr: string};
-    confirmPw(pw: string | undefined, pwCf: string | undefined): {isValid: boolean; errStr: string};
-    emailValid(email: string): boolean;
-}
-
-const account: Iaccnt = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var enums_1 = require("./enums");
+var account = {
     /**
      * options: 'special', 'number', 'capital'
      */
-    cValid: function (str, min, max, options?) {
-        let isValid = true;
-        let errStr = '';
-
-        if (!str) return {isValid: !isValid, errStr: 'EMPTY_STRING'};
-
+    cValid: function (str, min, max, options) {
+        var isValid = true;
+        var errStr = '';
+        if (!str)
+            return { isValid: !isValid, errStr: 'EMPTY_STRING' };
         if (str.length < min || str.length > max) {
             isValid = true;
         }
-
         if (options) {
-            options.some(curr => {
-                let regex!: RegExp;
+            options.some(function (curr) {
+                var regex;
                 switch (curr) {
-                    case strPatt.SPECIAL_CHARACTER:
+                    case enums_1.strPatt.SPECIAL_CHARACTER:
                         regex = /[!@#\$%\^&\*]/; //  @, #, $, %, ^, &, *, !
                         isValid = regex.test(str);
                         errStr = isValid ? '' : 'NO_SPECIAL_CHARACTER';
                         break;
-                    case strPatt.NUMBER:
+                    case enums_1.strPatt.NUMBER:
                         regex = /\d+/; // all of numbers
                         isValid = regex.test(str);
                         errStr = isValid ? '' : 'NO_NUMBER';
                         break;
-                    case strPatt.CAPITAL:
+                    case enums_1.strPatt.CAPITAL:
                         regex = /[A-Z]/; // capitals
                         isValid = regex.test(str);
                         errStr = isValid ? '' : 'NO_CAPITAL_CHARACTER';
@@ -42,43 +35,35 @@ const account: Iaccnt = {
                     default:
                         break;
                 }
-
                 if (!isValid) {
                     return true;
                 }
-
                 return false;
             });
         }
-
-        return {isValid, errStr};
+        return { isValid: isValid, errStr: errStr };
     },
     /**
      * check password validation
      */
     confirmPw: function (pw, pwCf) {
         if (!pw) {
-            return {isValid: false, errStr: 'EMPTY_PASSWORD'};
+            return { isValid: false, errStr: 'EMPTY_PASSWORD' };
         }
-
         if (!pwCf) {
-            return {isValid: false, errStr: 'EMPTY_PASSWORD_CONFIRM'};
+            return { isValid: false, errStr: 'EMPTY_PASSWORD_CONFIRM' };
         }
-
         if (pw === pwCf) {
-            return {isValid: false, errStr: 'NOT_EXACT_PASSWORD'};
+            return { isValid: false, errStr: 'NOT_EXACT_PASSWORD' };
         }
-
-        return {isValid: true, errStr: ''};
+        return { isValid: true, errStr: '' };
     },
     /**
      * check email validation
      */
     emailValid: function (email) {
-        const regex = /[a-z0-9]+@[a-z0-9]+\.[a-z0-9]+/;
+        var regex = /[a-z0-9]+@[a-z0-9]+\.[a-z0-9]+/;
         return regex.test(email);
     },
 };
-
-export default account;
-export {Iaccnt};
+exports.default = account;

@@ -7,14 +7,16 @@ interface IFile {
 const file: IFile = {
     imageValid(file, limitSize?) {
         const fileName = file.name;
-        const regex = /\.+/;
-        const ext = regex.exec(fileName)[0];
+        const regex = /\.[a-zA-Z0-9]+/;
+        const ext = regex.exec(fileName)![0];
         const size = file.size;
-        const limit = parseInt(this.rescaleSize(limitSize, 'byte').split('byte')[0]);
         let isValid: boolean;
         let errorMassage: string;
 
-        if (size > limit) return {isValid: false, errMassage: 'EXCEED_LIMIT_SIZE'};
+        if (limitSize) {
+            const limit = parseInt(this.rescaleSize(limitSize, 'byte').split('byte')[0]);
+            if (size > limit) return {isValid: false, errMassage: 'EXCEED_LIMIT_SIZE'};
+        }
 
         switch (ext) {
             case imageExt.GIF:
@@ -36,8 +38,8 @@ const file: IFile = {
     rescaleSize(size, rescaleUnit) {
         const numberRegex = /[0-9]+/;
         const unitRegex = /[a-zA-Z]+/;
-        let sizeNum = Number(numberRegex.exec(size)[0]);
-        const unit = unitRegex.exec(size)[0];
+        let sizeNum = Number(numberRegex.exec(size)![0]);
+        const unit = unitRegex.exec(size)![0];
         let offset = 1; // normalize to byte
 
         switch (unit.toLowerCase()) {

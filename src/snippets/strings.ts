@@ -21,7 +21,10 @@ const strings: Istrings = {
     },
     getPartCount: (str, part) => {
         const regex = new RegExp(part);
-        return regex.exec(str).length;
+        const arr = regex.exec(str);
+
+        if (arr) return arr.length;
+        else return 0;
     },
 };
 

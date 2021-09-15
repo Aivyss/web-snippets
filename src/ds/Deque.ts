@@ -11,8 +11,8 @@ interface IDeque<T> {
     capacity: number;
     push(...param: T[]): void;
     unshift(...param: T[]): void;
-    pop(): T;
-    shift(): T;
+    pop(): T | undefined;
+    shift(): T | undefined;
     clear(): void;
     slice(start?: number, end?: number): T[];
     map(callback: IMapCallback<T>): any[];
@@ -63,10 +63,7 @@ export default class Deque<T> implements IDeque<T> {
         }
     }
     pop() {
-        let returnVal: T;
-        returnVal = this._deque.pop();
-
-        return returnVal;
+        return this._deque.pop();
     }
     shift() {
         return this._deque.shift();
