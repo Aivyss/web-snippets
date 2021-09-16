@@ -5,13 +5,27 @@ var account = {
     /**
      * options: 'special', 'number', 'capital'
      */
-    cValid: function (str, min, max, options) {
+    /**
+     *
+     * @param str : target string
+     * @param min : minimum string length
+     * @param max : maximum string length
+     * @param options : 'capital', 'number', 'special'
+     * @returns {isValid, errStr} : isValid(boolean), errStr(error message)
+     */
+    cValid: function (str, min, max) {
+        var options = [];
+        for (var _i = 3; _i < arguments.length; _i++) {
+            options[_i - 3] = arguments[_i];
+        }
         var isValid = true;
-        var errStr = '';
+        var errMessage = '';
         if (!str)
-            return { isValid: !isValid, errStr: 'EMPTY_STRING' };
+            return { isValid: !isValid, errMessage: 'EMPTY_STRING' };
         if (str.length < min || str.length > max) {
             isValid = false;
+            errMessage = 'NOT_STRING_LENGTH_BOUNDARY';
+            return { isValid: isValid, errMessage: errMessage };
         }
         if (options) {
             options.some(function (curr) {
@@ -20,17 +34,17 @@ var account = {
                     case enums_1.strPatt.SPECIAL_CHARACTER:
                         regex = /[!@#\$%\^&\*]/; //  @, #, $, %, ^, &, *, !
                         isValid = regex.test(str);
-                        errStr = isValid ? '' : 'NO_SPECIAL_CHARACTER';
+                        errMessage = isValid ? '' : 'NO_SPECIAL_CHARACTER';
                         break;
                     case enums_1.strPatt.NUMBER:
                         regex = /\d+/; // all of numbers
                         isValid = regex.test(str);
-                        errStr = isValid ? '' : 'NO_NUMBER';
+                        errMessage = isValid ? '' : 'NO_NUMBER';
                         break;
                     case enums_1.strPatt.CAPITAL:
                         regex = /[A-Z]/; // capitals
                         isValid = regex.test(str);
-                        errStr = isValid ? '' : 'NO_CAPITAL_CHARACTER';
+                        errMessage = isValid ? '' : 'NO_CAPITAL_CHARACTER';
                         break;
                     default:
                         break;
@@ -41,7 +55,7 @@ var account = {
                 return false;
             });
         }
-        return { isValid: isValid, errStr: errStr };
+        return { isValid: isValid, errMessage: errMessage };
     },
     /**
      * check password validation
@@ -61,9 +75,13 @@ var account = {
     /**
      * check email validation
      */
-    emailValid: function (email) {
+    fullEmailValid: function (email) {
         var regex = /[a-z0-9]+@[a-z0-9]+\.[a-z0-9]+/;
         return regex.test(email);
+    },
+    rightSideEmailValid: function (domain) {
+        var regex = /[a-z0-9]+\.[a-z09]/;
+        return regex.test(domain);
     },
 };
 exports.default = account;

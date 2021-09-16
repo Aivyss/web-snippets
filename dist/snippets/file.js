@@ -10,7 +10,7 @@ var file = {
         var isValid;
         var errorMessage;
         if (limitSize) {
-            var limit = parseInt(this.rescaleSize(limitSize, 'byte').split('byte')[0]);
+            var limit = parseInt(this.rescaleSize(limitSize, enums_1.fileUnit.BYTE).split('byte')[0]);
             if (size > limit)
                 return { isValid: false, errMessage: 'EXCEED_LIMIT_SIZE' };
         }
@@ -35,6 +35,7 @@ var file = {
         var sizeNum = Number(numberRegex.exec(size)[0]);
         var unit = unitRegex.exec(size)[0];
         var offset = 1; // normalize to byte
+        // any unit -> byte unit
         switch (unit.toLowerCase()) {
             case enums_1.fileUnit.TB:
                 offset *= 1024;
@@ -52,22 +53,18 @@ var file = {
                 break;
         }
         sizeNum *= offset;
+        // byte unit -> target unit
         switch (rescaleUnit.toLowerCase()) {
             case enums_1.fileUnit.TB:
-                sizeNum /= Math.pow(1024, 4);
-                break;
+                sizeNum /= 1024;
             case enums_1.fileUnit.GB:
-                sizeNum /= Math.pow(1024, 3);
-                break;
+                sizeNum /= 1024;
             case enums_1.fileUnit.MB:
-                sizeNum /= Math.pow(1024, 2);
-                break;
+                sizeNum /= 1024;
             case enums_1.fileUnit.KB:
                 sizeNum /= 1024;
-                break;
             case enums_1.fileUnit.BYTE:
                 sizeNum /= 1;
-                break;
             default:
                 sizeNum /= 1;
                 break;

@@ -1,8 +1,10 @@
 import {imageExt, fileUnit} from './enums';
 
+type FileUnit = fileUnit.BYTE | fileUnit.KB | fileUnit.MB | fileUnit.TB | fileUnit.GB;
+
 interface IFile {
     imageValid(file: File, limitSize?: string): {isValid: boolean; errMessage: string};
-    rescaleSize(size: string, rescaleUnit: string): string;
+    rescaleSize(size: string, rescaleUnit: FileUnit): string;
 }
 const file: IFile = {
     imageValid(file, limitSize?) {
@@ -14,7 +16,7 @@ const file: IFile = {
         let errorMessage: string;
 
         if (limitSize) {
-            const limit = parseInt(this.rescaleSize(limitSize, 'byte').split('byte')[0]);
+            const limit = parseInt(this.rescaleSize(limitSize, fileUnit.BYTE).split('byte')[0]);
             if (size > limit) return {isValid: false, errMessage: 'EXCEED_LIMIT_SIZE'};
         }
 
@@ -42,6 +44,7 @@ const file: IFile = {
         const unit = unitRegex.exec(size)![0];
         let offset = 1; // normalize to byte
 
+        // any unit -> byte unit
         switch (unit.toLowerCase()) {
             case fileUnit.TB:
                 offset *= 1024;
@@ -61,22 +64,18 @@ const file: IFile = {
 
         sizeNum *= offset;
 
+        // byte unit -> target unit
         switch (rescaleUnit.toLowerCase()) {
             case fileUnit.TB:
-                sizeNum /= Math.pow(1024, 4);
-                break;
+                sizeNum /= 1024;
             case fileUnit.GB:
-                sizeNum /= Math.pow(1024, 3);
-                break;
+                sizeNum /= 1024;
             case fileUnit.MB:
-                sizeNum /= Math.pow(1024, 2);
-                break;
+                sizeNum /= 1024;
             case fileUnit.KB:
                 sizeNum /= 1024;
-                break;
             case fileUnit.BYTE:
                 sizeNum /= 1;
-                break;
             default:
                 sizeNum /= 1;
                 break;
@@ -87,4 +86,4 @@ const file: IFile = {
 };
 
 export default file;
-export {IFile};
+export {IFile, FileUnit};

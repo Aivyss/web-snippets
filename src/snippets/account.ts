@@ -1,23 +1,42 @@
 import {strPatt} from './enums';
 
+export type Options = strPatt.SPECIAL_CHARACTER | strPatt.NUMBER | strPatt.CAPITAL;
+
 interface Iaccnt {
-    cValid(str: string | undefined, min: number, max: number, options?: string[]): {isValid: boolean; errStr: string};
+    cValid(
+        str: string | undefined,
+        min: number,
+        max: number,
+        ...options: Options[]
+    ): {isValid: boolean; errMessage: string};
     confirmPw(pw: string | undefined, pwCf: string | undefined): {isValid: boolean; errStr: string};
-    emailValid(email: string): boolean;
+    fullEmailValid(email: string): boolean;
+    rightSideEmailValid(domain: string): boolean;
 }
 
 const account: Iaccnt = {
     /**
      * options: 'special', 'number', 'capital'
      */
-    cValid: function (str, min, max, options?) {
+    /**
+     *
+     * @param str : target string
+     * @param min : minimum string length
+     * @param max : maximum string length
+     * @param options : 'capital', 'number', 'special'
+     * @returns {isValid, errStr} : isValid(boolean), errStr(error message)
+     */
+    cValid: function (str, min, max, ...options) {
         let isValid = true;
-        let errStr = '';
+        let errMessage = '';
 
-        if (!str) return {isValid: !isValid, errStr: 'EMPTY_STRING'};
+        if (!str) return {isValid: !isValid, errMessage: 'EMPTY_STRING'};
 
         if (str.length < min || str.length > max) {
             isValid = false;
+            errMessage = 'NOT_STRING_LENGTH_BOUNDARY';
+
+            return {isValid, errMessage};
         }
 
         if (options) {
@@ -27,17 +46,17 @@ const account: Iaccnt = {
                     case strPatt.SPECIAL_CHARACTER:
                         regex = /[!@#\$%\^&\*]/; //  @, #, $, %, ^, &, *, !
                         isValid = regex.test(str);
-                        errStr = isValid ? '' : 'NO_SPECIAL_CHARACTER';
+                        errMessage = isValid ? '' : 'NO_SPECIAL_CHARACTER';
                         break;
                     case strPatt.NUMBER:
                         regex = /\d+/; // all of numbers
                         isValid = regex.test(str);
-                        errStr = isValid ? '' : 'NO_NUMBER';
+                        errMessage = isValid ? '' : 'NO_NUMBER';
                         break;
                     case strPatt.CAPITAL:
                         regex = /[A-Z]/; // capitals
                         isValid = regex.test(str);
-                        errStr = isValid ? '' : 'NO_CAPITAL_CHARACTER';
+                        errMessage = isValid ? '' : 'NO_CAPITAL_CHARACTER';
                         break;
                     default:
                         break;
@@ -51,7 +70,7 @@ const account: Iaccnt = {
             });
         }
 
-        return {isValid, errStr};
+        return {isValid, errMessage};
     },
     /**
      * check password validation
@@ -74,9 +93,13 @@ const account: Iaccnt = {
     /**
      * check email validation
      */
-    emailValid: function (email) {
+    fullEmailValid: function (email) {
         const regex = /[a-z0-9]+@[a-z0-9]+\.[a-z0-9]+/;
         return regex.test(email);
+    },
+    rightSideEmailValid: function (domain) {
+        const regex = /[a-z0-9]+\.[a-z09]/;
+        return regex.test(domain);
     },
 };
 
