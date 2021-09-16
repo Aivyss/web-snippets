@@ -5,8 +5,12 @@ var strings = {
         var regex = /#[A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-힣ぁ-ゔァ-ヴー々〆〤一-龥]+/;
         return regex.exec(str);
     },
-    getPhoneNum: function (str) {
+    getDashPhoneNum: function (str) {
         var regex = /\d+-\d+-\d+/;
+        return regex.exec(str);
+    },
+    getPhoneNum: function (str, count) {
+        var regex = new RegExp('\\d{' + count + ',' + count + '}');
         return regex.exec(str);
     },
     getHashStr: function (str) {

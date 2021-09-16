@@ -2,16 +2,17 @@ import {strPatt} from './enums';
 
 export type Options = strPatt.SPECIAL_CHARACTER | strPatt.NUMBER | strPatt.CAPITAL;
 
+interface IResult {
+    isValid: boolean;
+    errMessage: string;
+}
 interface Iaccnt {
-    cValid(
-        str: string | undefined,
-        min: number,
-        max: number,
-        ...options: Options[]
-    ): {isValid: boolean; errMessage: string};
-    confirmPw(pw: string | undefined, pwCf: string | undefined): {isValid: boolean; errStr: string};
+    cValid(str: string | undefined, min: number, max: number, ...options: Options[]): IResult;
+    confirmPw(pw: string | undefined, pwCf: string | undefined): IResult;
     fullEmailValid(email: string): boolean;
     rightSideEmailValid(domain: string): boolean;
+    cValidDashPhoneNum(str: string): boolean;
+    cValidPhoneNum(str: string, num: number): boolean;
 }
 
 const account: Iaccnt = {
@@ -77,18 +78,18 @@ const account: Iaccnt = {
      */
     confirmPw: function (pw, pwCf) {
         if (!pw) {
-            return {isValid: false, errStr: 'EMPTY_PASSWORD'};
+            return {isValid: false, errMessage: 'EMPTY_PASSWORD'};
         }
 
         if (!pwCf) {
-            return {isValid: false, errStr: 'EMPTY_PASSWORD_CONFIRM'};
+            return {isValid: false, errMessage: 'EMPTY_PASSWORD_CONFIRM'};
         }
 
         if (pw === pwCf) {
-            return {isValid: false, errStr: 'NOT_EXACT_PASSWORD'};
+            return {isValid: true, errMessage: ''};
+        } else {
+            return {isValid: false, errMessage: 'NOT_EXACT_PASSWORD'};
         }
-
-        return {isValid: true, errStr: ''};
     },
     /**
      * check email validation
@@ -100,6 +101,14 @@ const account: Iaccnt = {
     rightSideEmailValid: function (domain) {
         const regex = /[a-z0-9]+\.[a-z09]/;
         return regex.test(domain);
+    },
+    cValidDashPhoneNum: str => {
+        const regex = /\d{3,3}-\d{4,4}-\d{4,4}/;
+        return regex.test(str);
+    },
+    cValidPhoneNum: (str, count) => {
+        const regex = new RegExp('\\d{' + count + ',' + count + '}');
+        return regex.test(str);
     },
 };
 

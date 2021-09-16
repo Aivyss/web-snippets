@@ -62,15 +62,17 @@ var account = {
      */
     confirmPw: function (pw, pwCf) {
         if (!pw) {
-            return { isValid: false, errStr: 'EMPTY_PASSWORD' };
+            return { isValid: false, errMessage: 'EMPTY_PASSWORD' };
         }
         if (!pwCf) {
-            return { isValid: false, errStr: 'EMPTY_PASSWORD_CONFIRM' };
+            return { isValid: false, errMessage: 'EMPTY_PASSWORD_CONFIRM' };
         }
         if (pw === pwCf) {
-            return { isValid: false, errStr: 'NOT_EXACT_PASSWORD' };
+            return { isValid: true, errMessage: '' };
         }
-        return { isValid: true, errStr: '' };
+        else {
+            return { isValid: false, errMessage: 'NOT_EXACT_PASSWORD' };
+        }
     },
     /**
      * check email validation
@@ -82,6 +84,14 @@ var account = {
     rightSideEmailValid: function (domain) {
         var regex = /[a-z0-9]+\.[a-z09]/;
         return regex.test(domain);
+    },
+    cValidDashPhoneNum: function (str) {
+        var regex = /\d{3,3}-\d{4,4}-\d{4,4}/;
+        return regex.test(str);
+    },
+    cValidPhoneNum: function (str, count) {
+        var regex = new RegExp('\\d{' + count + ',' + count + '}');
+        return regex.test(str);
     },
 };
 exports.default = account;
