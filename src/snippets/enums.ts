@@ -1,10 +1,13 @@
-enum strPatt {
-    SPECIAL_CHARACTER = 'special',
+export enum strPatt {
+    SPECIAL = 'special',
     NUMBER = 'number',
     CAPITAL = 'capital',
+    NO_CAPITAL = 'no_capital',
+    NO_SPECIAL = 'no_special',
+    NO_NUMBER = 'no_number',
 }
 
-enum imageExt {
+export enum imageExt {
     JPEG = '.JPEG',
     JFIF = '.JFIF',
     JPG = '.JPG',
@@ -12,7 +15,7 @@ enum imageExt {
     PNG = '.PNG',
 }
 
-enum fileUnit {
+export enum fileUnit {
     BYTE = 'byte',
     KB = 'kb',
     MB = 'mb',
@@ -20,8 +23,6 @@ enum fileUnit {
     TB = 'tb',
 }
 
-enum eNumbers {
+export enum eNumbers {
     RANDOM_NUM = 'randomNum',
 }
-
-export {strPatt, eNumbers, imageExt, fileUnit};

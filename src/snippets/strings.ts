@@ -1,6 +1,6 @@
 import {strPatt} from './enums';
 
-interface Istrings {
+export interface Istrings {
     getHashTags(str: string): string[];
     getDashPhoneNum(str: string): string[];
     getPhoneNum(str: string, count: number): string[];
@@ -34,4 +34,3 @@ const strings: Istrings = {
 };
 
 export default strings;
-export {Istrings};

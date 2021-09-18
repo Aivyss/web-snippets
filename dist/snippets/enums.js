@@ -1,13 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fileUnit = exports.imageExt = exports.eNumbers = exports.strPatt = void 0;
+exports.eNumbers = exports.fileUnit = exports.imageExt = exports.strPatt = void 0;
 var strPatt;
 (function (strPatt) {
-    strPatt["SPECIAL_CHARACTER"] = "special";
+    strPatt["SPECIAL"] = "special";
     strPatt["NUMBER"] = "number";
     strPatt["CAPITAL"] = "capital";
-})(strPatt || (strPatt = {}));
-exports.strPatt = strPatt;
+    strPatt["NO_CAPITAL"] = "no_capital";
+    strPatt["NO_SPECIAL"] = "no_special";
+    strPatt["NO_NUMBER"] = "no_number";
+})(strPatt = exports.strPatt || (exports.strPatt = {}));
 var imageExt;
 (function (imageExt) {
     imageExt["JPEG"] = ".JPEG";
@@ -15,8 +17,7 @@ var imageExt;
     imageExt["JPG"] = ".JPG";
     imageExt["GIF"] = ".GIF";
     imageExt["PNG"] = ".PNG";
-})(imageExt || (imageExt = {}));
-exports.imageExt = imageExt;
+})(imageExt = exports.imageExt || (exports.imageExt = {}));
 var fileUnit;
 (function (fileUnit) {
     fileUnit["BYTE"] = "byte";
@@ -24,10 +25,8 @@ var fileUnit;
     fileUnit["MB"] = "mb";
     fileUnit["GB"] = "gb";
     fileUnit["TB"] = "tb";
-})(fileUnit || (fileUnit = {}));
-exports.fileUnit = fileUnit;
+})(fileUnit = exports.fileUnit || (exports.fileUnit = {}));
 var eNumbers;
 (function (eNumbers) {
     eNumbers["RANDOM_NUM"] = "randomNum";
-})(eNumbers || (eNumbers = {}));
-exports.eNumbers = eNumbers;
+})(eNumbers = exports.eNumbers || (exports.eNumbers = {}));

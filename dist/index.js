@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fileUnit = exports.strPatt = exports.files = exports.numbers = exports.strings = exports.account = void 0;
+exports.imageExt = exports.eNumbers = exports.fileUnit = exports.strPatt = exports.files = exports.numbers = exports.strings = exports.account = void 0;
 var account_1 = __importDefault(require("./snippets/account"));
 exports.account = account_1.default;
 var strings_1 = __importDefault(require("./snippets/strings"));
@@ -15,3 +15,5 @@ exports.files = file_1.default;
 var enums_1 = require("./snippets/enums");
 Object.defineProperty(exports, "strPatt", { enumerable: true, get: function () { return enums_1.strPatt; } });
 Object.defineProperty(exports, "fileUnit", { enumerable: true, get: function () { return enums_1.fileUnit; } });
+Object.defineProperty(exports, "eNumbers", { enumerable: true, get: function () { return enums_1.eNumbers; } });
+Object.defineProperty(exports, "imageExt", { enumerable: true, get: function () { return enums_1.imageExt; } });

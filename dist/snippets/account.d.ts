@@ -1,10 +1,10 @@
 import { strPatt } from './enums';
-export declare type Options = strPatt.SPECIAL_CHARACTER | strPatt.NUMBER | strPatt.CAPITAL;
-interface IResult {
+export declare type Options = strPatt.SPECIAL | strPatt.NUMBER | strPatt.CAPITAL | strPatt.NO_CAPITAL | strPatt.NO_SPECIAL | strPatt.NO_NUMBER;
+export interface IResult {
     isValid: boolean;
     errMessage: string;
 }
-interface Iaccnt {
+export interface Iaccnt {
     cValid(str: string | undefined, min: number, max: number, ...options: Options[]): IResult;
     confirmPw(pw: string | undefined, pwCf: string | undefined): IResult;
     fullEmailValid(email: string): boolean;
@@ -14,4 +14,3 @@ interface Iaccnt {
 }
 declare const account: Iaccnt;
 export default account;
-export { Iaccnt };

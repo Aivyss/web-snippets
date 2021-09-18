@@ -1,12 +1,18 @@
 import {strPatt} from './enums';
 
-export type Options = strPatt.SPECIAL_CHARACTER | strPatt.NUMBER | strPatt.CAPITAL;
+export type Options =
+    | strPatt.SPECIAL
+    | strPatt.NUMBER
+    | strPatt.CAPITAL
+    | strPatt.NO_CAPITAL
+    | strPatt.NO_SPECIAL
+    | strPatt.NO_NUMBER;
 
-interface IResult {
+export interface IResult {
     isValid: boolean;
     errMessage: string;
 }
-interface Iaccnt {
+export interface Iaccnt {
     cValid(str: string | undefined, min: number, max: number, ...options: Options[]): IResult;
     confirmPw(pw: string | undefined, pwCf: string | undefined): IResult;
     fullEmailValid(email: string): boolean;
@@ -24,11 +30,12 @@ const account: Iaccnt = {
      * @param str : target string
      * @param min : minimum string length
      * @param max : maximum string length
-     * @param options : 'capital', 'number', 'special'
+     * @param options : 'capital', 'number', 'special', 'no_capital', 'no_number', 'no_special'
      * @returns {isValid, errStr} : isValid(boolean), errStr(error message)
      */
     cValid: function (str, min, max, ...options) {
         let isValid = true;
+        let isValidTemp = true;
         let errMessage = '';
 
         if (!str) return {isValid: !isValid, errMessage: 'EMPTY_STRING'};
@@ -41,33 +48,48 @@ const account: Iaccnt = {
         }
 
         if (options) {
-            options.some(curr => {
+            options.forEach(curr => {
                 let regex!: RegExp;
                 switch (curr) {
-                    case strPatt.SPECIAL_CHARACTER:
+                    case strPatt.SPECIAL:
                         regex = /[!@#\$%\^&\*]/; //  @, #, $, %, ^, &, *, !
-                        isValid = regex.test(str);
-                        errMessage = isValid ? '' : 'NO_SPECIAL_CHARACTER';
+                        isValidTemp = regex.test(str);
+                        isValid &&= isValidTemp;
+                        errMessage += isValidTemp ? '' : ' NO_SPECIAL_CHARACTER';
                         break;
                     case strPatt.NUMBER:
                         regex = /\d+/; // all of numbers
-                        isValid = regex.test(str);
-                        errMessage = isValid ? '' : 'NO_NUMBER';
+                        isValidTemp = regex.test(str);
+                        isValid &&= isValidTemp;
+                        errMessage += isValidTemp ? '' : ' NO_NUMBER';
                         break;
                     case strPatt.CAPITAL:
                         regex = /[A-Z]/; // capitals
-                        isValid = regex.test(str);
-                        errMessage = isValid ? '' : 'NO_CAPITAL_CHARACTER';
+                        isValidTemp = regex.test(str);
+                        isValid &&= isValidTemp;
+                        errMessage += isValidTemp ? '' : ' NO_CAPITAL_CHARACTER';
+                        break;
+                    case strPatt.NO_CAPITAL:
+                        regex = /[A-Z]/;
+                        isValidTemp = !regex.test(str);
+                        isValid &&= isValidTemp;
+                        errMessage += isValidTemp ? '' : ' HAVE_CAPITAL_CHARACTER_ERR';
+                        break;
+                    case strPatt.NO_SPECIAL:
+                        regex = /[!@#\$%\^&\*]/; //  @, #, $, %, ^, &, *, !
+                        isValidTemp = !regex.test(str);
+                        isValid &&= isValidTemp;
+                        errMessage += isValidTemp ? '' : ' NO_SPECIAL_CHARACTER';
+                        break;
+                    case strPatt.NO_NUMBER:
+                        regex = /\d+/; // all of numbers
+                        isValidTemp = !regex.test(str);
+                        isValid &&= isValidTemp;
+                        errMessage += isValidTemp ? '' : ' NO_NUMBER';
                         break;
                     default:
                         break;
                 }
-
-                if (!isValid) {
-                    return true;
-                }
-
-                return false;
             });
         }
 
@@ -113,4 +135,3 @@ const account: Iaccnt = {
 };
 
 export default account;
-export {Iaccnt};

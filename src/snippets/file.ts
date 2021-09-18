@@ -1,8 +1,8 @@
 import {imageExt, fileUnit} from './enums';
 
-type FileUnit = fileUnit.BYTE | fileUnit.KB | fileUnit.MB | fileUnit.TB | fileUnit.GB;
+export type FileUnit = fileUnit.BYTE | fileUnit.KB | fileUnit.MB | fileUnit.TB | fileUnit.GB;
 
-interface IFile {
+export interface IFile {
     imageValid(file: File, limitSize?: string): {isValid: boolean; errMessage: string};
     rescaleSize(size: string, rescaleUnit: FileUnit): string;
 }
@@ -86,4 +86,3 @@ const file: IFile = {
 };
 
 export default file;
-export {IFile, FileUnit};
