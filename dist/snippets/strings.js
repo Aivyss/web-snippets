@@ -25,7 +25,8 @@ var strings = {
             return 0;
     },
     parseCookieString: function (cookie) {
-        var strArr = cookie.split(';');
+        var temp = cookie.split(';');
+        var strArr = temp.splice(0, temp.length);
         var cookieJson = {};
         strArr.forEach(function (curr) {
             var idx = curr.indexOf('=');

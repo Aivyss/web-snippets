@@ -33,7 +33,8 @@ const strings: Istrings = {
         else return 0;
     },
     parseCookieString(cookie) {
-        const strArr = cookie.split(';');
+        const temp = cookie.split(';');
+        const strArr = temp.splice(0, temp.length);
         const cookieJson: {[idx: string]: string} = {};
         strArr.forEach(curr => {
             const idx = curr.indexOf('=');
