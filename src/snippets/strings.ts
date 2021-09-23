@@ -34,15 +34,13 @@ const strings: Istrings = {
     },
     parseCookieString(cookie) {
         const temp = cookie.split(';');
-        const strArr = temp.splice(0, temp.length);
+        const strArr = temp.splice(0, temp.length - 1);
         const cookieJson: {[idx: string]: string} = {};
         strArr.forEach(curr => {
             const idx = curr.indexOf('=');
             const key = curr.substring(0, idx);
             const val = curr.substring(idx + 1);
-            if (key) {
-                cookieJson[key] = val;
-            }
+            cookieJson[key] = val;
         });
 
         return cookieJson;

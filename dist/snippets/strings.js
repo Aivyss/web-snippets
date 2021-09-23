@@ -26,15 +26,13 @@ var strings = {
     },
     parseCookieString: function (cookie) {
         var temp = cookie.split(';');
-        var strArr = temp.splice(0, temp.length);
+        var strArr = temp.splice(0, temp.length - 1);
         var cookieJson = {};
         strArr.forEach(function (curr) {
             var idx = curr.indexOf('=');
             var key = curr.substring(0, idx);
             var val = curr.substring(idx + 1);
-            if (key) {
-                cookieJson[key] = val;
-            }
+            cookieJson[key] = val;
         });
         return cookieJson;
     },
