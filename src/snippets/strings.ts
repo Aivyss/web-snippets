@@ -6,6 +6,7 @@ export interface Istrings {
     getPhoneNum(str: string, count: number): string[];
     getHashStr(strList: string[]): string;
     getPartCount(str: string, part: string): number;
+    parseCookieString(cookie: string): {[idx: string]: string};
 }
 
 const strings: Istrings = {
@@ -30,6 +31,20 @@ const strings: Istrings = {
 
         if (arr) return arr.length;
         else return 0;
+    },
+    parseCookieString(cookie) {
+        const strArr = cookie.split(';');
+        const cookieJson: {[idx: string]: string} = {};
+        strArr.forEach(curr => {
+            const idx = curr.indexOf('=');
+            const key = curr.substring(0, idx);
+            const val = curr.substring(idx + 1);
+            if (key) {
+                cookieJson[key] = val;
+            }
+        });
+
+        return cookieJson;
     },
 };
 

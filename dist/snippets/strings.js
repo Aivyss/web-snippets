@@ -24,5 +24,18 @@ var strings = {
         else
             return 0;
     },
+    parseCookieString: function (cookie) {
+        var strArr = cookie.split(';');
+        var cookieJson = {};
+        strArr.forEach(function (curr) {
+            var idx = curr.indexOf('=');
+            var key = curr.substring(0, idx);
+            var val = curr.substring(idx + 1);
+            if (key) {
+                cookieJson[key] = val;
+            }
+        });
+        return cookieJson;
+    },
 };
 exports.default = strings;
