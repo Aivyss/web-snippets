@@ -28,11 +28,12 @@ const arrays: IArrays = {
      * @returns N times popped array
      */
     repeatPop: function (array, times) {
+        let poppedArray: any[] = [];
         for (let i = 0; i < times; i += 1) {
-            array.pop();
+            poppedArray.push(array.pop());
         }
 
-        return array;
+        return poppedArray;
     },
     /**
      *

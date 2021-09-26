@@ -4,30 +4,26 @@ export interface Istrings {
     getHashTags(str: string): string[];
     getDashPhoneNum(str: string): string[];
     getPhoneNum(str: string, count: number): string[];
-    getHashStr(strList: string[]): string;
     getPartCount(str: string, part: string): number;
     parseCookieString(cookie: string): {[idx: string]: string};
 }
 
 const strings: Istrings = {
     getHashTags: str => {
-        const regex = /#[A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-힣ぁ-ゔァ-ヴー々〆〤一-龥]+/;
-        return regex.exec(str) as string[];
+        const regex = /#[A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-힣ぁ-ゔァ-ヴー々〆〤一-龥]+/g;
+        return str.match(regex) as string[];
     },
     getDashPhoneNum: str => {
-        const regex = /\d+-\d+-\d+/;
-        return regex.exec(str) as string[];
+        const regex = /\d+-\d+-\d+/g;
+        return str.match(regex) as string[];
     },
     getPhoneNum: (str, count) => {
-        const regex = new RegExp('\\d{' + count + ',' + count + '}');
-        return regex.exec(str) as string[];
-    },
-    getHashStr: str => {
-        return '';
+        const regex = new RegExp('\\d{' + count + ',' + count + '}', 'g');
+        return str.match(regex) as string[];
     },
     getPartCount: (str, part) => {
-        const regex = new RegExp(part);
-        const arr = regex.exec(str);
+        const regex = new RegExp(part, 'g');
+        const arr = str.match(regex);
 
         if (arr) return arr.length;
         else return 0;

@@ -117,11 +117,13 @@ const account: Iaccnt = {
      * check email validation
      */
     fullEmailValid: function (email) {
-        const regex = /[a-z0-9]+@[a-z0-9]+\.[a-z0-9]+/;
+        const regex =
+            /[a-z0-9]+@(([a-zA-Z]{1})|([a-zA-Z]{1}[a-zA-Z]{1})|([a-zA-Z]{1}[0-9]{1})|([0-9]{1}[a-zA-Z]{1})|([a-zA-Z0-9][a-zA-Z0-9-_]{1,61}[a-zA-Z0-9]))\.([a-zA-Z]{2,6}|[a-zA-Z0-9-]{2,30}\.[a-zA-Z]{2,3})$/g;
         return regex.test(email);
     },
     rightSideEmailValid: function (domain) {
-        const regex = /[a-z0-9]+\.[a-z09]/;
+        const regex =
+            /^(([a-zA-Z]{1})|([a-zA-Z]{1}[a-zA-Z]{1})|([a-zA-Z]{1}[0-9]{1})|([0-9]{1}[a-zA-Z]{1})|([a-zA-Z0-9][a-zA-Z0-9-_]{1,61}[a-zA-Z0-9]))\.([a-zA-Z]{2,6}|[a-zA-Z0-9-]{2,30}\.[a-zA-Z]{2,3})$/g;
         return regex.test(domain);
     },
     cValidDashPhoneNum: str => {

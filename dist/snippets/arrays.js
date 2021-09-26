@@ -23,10 +23,11 @@ var arrays = {
      * @returns N times popped array
      */
     repeatPop: function (array, times) {
+        var poppedArray = [];
         for (var i = 0; i < times; i += 1) {
-            array.pop();
+            poppedArray.push(array.pop());
         }
-        return array;
+        return poppedArray;
     },
     /**
      *

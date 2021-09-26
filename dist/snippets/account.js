@@ -96,11 +96,11 @@ var account = {
      * check email validation
      */
     fullEmailValid: function (email) {
-        var regex = /[a-z0-9]+@[a-z0-9]+\.[a-z0-9]+/;
+        var regex = /[a-z0-9]+@(([a-zA-Z]{1})|([a-zA-Z]{1}[a-zA-Z]{1})|([a-zA-Z]{1}[0-9]{1})|([0-9]{1}[a-zA-Z]{1})|([a-zA-Z0-9][a-zA-Z0-9-_]{1,61}[a-zA-Z0-9]))\.([a-zA-Z]{2,6}|[a-zA-Z0-9-]{2,30}\.[a-zA-Z]{2,3})$/g;
         return regex.test(email);
     },
     rightSideEmailValid: function (domain) {
-        var regex = /[a-z0-9]+\.[a-z09]/;
+        var regex = /^(([a-zA-Z]{1})|([a-zA-Z]{1}[a-zA-Z]{1})|([a-zA-Z]{1}[0-9]{1})|([0-9]{1}[a-zA-Z]{1})|([a-zA-Z0-9][a-zA-Z0-9-_]{1,61}[a-zA-Z0-9]))\.([a-zA-Z]{2,6}|[a-zA-Z0-9-]{2,30}\.[a-zA-Z]{2,3})$/g;
         return regex.test(domain);
     },
     cValidDashPhoneNum: function (str) {
