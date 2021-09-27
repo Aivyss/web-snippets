@@ -140,3 +140,24 @@
     -   start: start double
     -   end: end double
 -   return: random double
+
+## Pagination class
+
+![Untitled](https://user-images.githubusercontent.com/64432366/134892802-4f6d3ac2-27f9-4a41-9676-a0bd4b773509.png)
+
+![Untitled 1](https://user-images.githubusercontent.com/64432366/134892812-db43449a-392e-4933-911f-fd108e2e4c82.png)
+
+-   feature: pagination class
+-   constructor parameters (check above images)
+    -   totFeedCount: number,
+    -   currentPage: number,
+    -   pageGroupCount: number
+    -   feedPerPage: number
+-   member variables of a pagination intance
+    -   \_totFeedCount
+    -   \_feedRange
+    -   \_feedPerPage
+    -   \_totPage
+    -   \_currentPage
+    -   \_pageGroupCount
+    -   \_pageGroup
