@@ -98,7 +98,7 @@
     -   rescaleUnit: ('byte', 'kb', 'mb', 'gb', 'tb')
 -   return: string (recalculated file size)
 
-## array module
+## arrs module
 
 ### shuffle
 
@@ -122,6 +122,13 @@
     -   array: target array
     -   propsName: string name
 -   return: array of values from property name
+
+### numericalHeapSort
+
+-   feature: numerical array sort (heap sorting)
+-   parameters
+    -   array: number[] (only numbers)
+-   return: sorted array (if you don't need, just use original array. It aleady sorted)
 
 ## numbers module
 

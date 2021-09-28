@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var arrays = {
+var arrs = {
     /**
      *
      * @param array
@@ -40,7 +40,7 @@ var arrays = {
             return curr[propsName];
         });
     },
-    numericHeapSort: function (array) {
+    numericalHeapSort: function (array) {
         var _a, _b, _c;
         var length = array.length;
         // make max heap structure
@@ -56,12 +56,12 @@ var arrays = {
         }
         for (var i = length - 1; i >= 0; i -= 1) {
             // move maximum value to last leaf node.
-            _b = [array[i], array[i]], array[0] = _b[0], array[i] = _b[1];
+            _b = [array[i], array[0]], array[0] = _b[0], array[i] = _b[1];
             // repeat to make max heap structure
             var root = 0;
             var c = 1;
             do {
-                // find bigger value in children nodes
+                // find bigger direct children
                 c = 2 * root + 1;
                 if (array[c] < array[c + 1] && c < i - 1) {
                     c += 1;
@@ -70,9 +70,10 @@ var arrays = {
                 if (array[root] < array[c] && c < i) {
                     _c = [array[c], array[root]], array[root] = _c[0], array[c] = _c[1];
                 }
-                c = root;
+                root = c;
             } while (c < i); // do not exceed sorted area
         }
         return array;
     },
 };
+exports.default = arrs;

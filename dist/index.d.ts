@@ -1,11 +1,12 @@
 import account, { Iaccnt, Options, IResult } from './snippets/account';
 import strings, { Istrings } from './snippets/strings';
 import numbers, { INumbers } from './snippets/numbers';
+import arrs, { IArrs } from './snippets/arrs';
 import Pagination from './snippets/pagination';
 import files, { IFile, FileUnit } from './snippets/file';
 import { strPatt, fileUnit, eNumbers, imageExt } from './snippets/enums';
 export { Pagination };
-export { account, strings, numbers, files };
-export { Iaccnt, Istrings, INumbers, IFile, IResult };
+export { account, strings, numbers, files, arrs };
+export { Iaccnt, Istrings, INumbers, IFile, IResult, IArrs };
 export { FileUnit, Options };
 export { strPatt, fileUnit, eNumbers, imageExt };
