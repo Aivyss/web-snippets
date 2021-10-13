@@ -47,6 +47,11 @@ const arrs: IArrs = {
             return curr[propsName];
         });
     },
+    /**
+     *
+     * @param array
+     * @returns sorted arrayß
+     */
     numericalHeapSort(array) {
         const length = array.length;
 

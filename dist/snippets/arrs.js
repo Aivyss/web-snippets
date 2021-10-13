@@ -40,6 +40,11 @@ var arrs = {
             return curr[propsName];
         });
     },
+    /**
+     *
+     * @param array
+     * @returns sorted arrayß
+     */
     numericalHeapSort: function (array) {
         var _a, _b, _c;
         var length = array.length;

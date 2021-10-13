@@ -5,12 +5,16 @@ import arrs, {IArrs} from './snippets/arrs';
 import Pagination from './snippets/pagination';
 import files, {IFile, FileUnit} from './snippets/file';
 import {strPatt, fileUnit, eNumbers, imageExt} from './snippets/enums';
+import {reader, writer} from './snippets/reader';
 
 // * classes
 export {Pagination};
 
 // * objects
 export {account, strings, numbers, files, arrs};
+
+// * functions
+export {reader, writer};
 
 // * interfaces
 export {Iaccnt, Istrings, INumbers, IFile, IResult, IArrs};
