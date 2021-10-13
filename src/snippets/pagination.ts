@@ -30,7 +30,7 @@ export default class Pagination {
         }
 
         // feed offset
-        let offset = (this._currentPage - 1) * this._feedPerPage;
+        let offset = (this._currentPage - 1) * this._feedPerPage + 1;
         this._feedRange = [offset, this._feedPerPage];
     }
 
