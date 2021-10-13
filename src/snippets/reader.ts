@@ -5,11 +5,9 @@ export function reader<T>(property: string = '', file: string = 'default.json'):
     let item = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', '..', 'config', 'default.json'), 'utf-8'));
     let overrideItem = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', '..', 'config', file), 'utf-8'));
 
-    console.log(item, overrideItem);
     if (property) {
         item = item[property];
         overrideItem = overrideItem[property];
-        console.log('???', item, overrideItem);
     }
 
     if (file !== 'default.json') {
