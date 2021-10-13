@@ -26,7 +26,7 @@ var Pagination = /** @class */ (function () {
             this._pageGroup = [groupEnd - this._pageGroupCount + 1, groupEnd];
         }
         // feed offset
-        var offset = (this._currentPage - 1) * this._feedPerPage;
+        var offset = (this._currentPage - 1) * this._feedPerPage + 1;
         this._feedRange = [offset, this._feedPerPage];
     }
     Object.defineProperty(Pagination.prototype, "currentPage", {

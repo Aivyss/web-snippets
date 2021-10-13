@@ -41,11 +41,9 @@ function reader(property, file) {
     if (file === void 0) { file = 'default.json'; }
     var item = JSON.parse(fs_1.default.readFileSync(path.join(__dirname, '..', '..', '..', 'config', 'default.json'), 'utf-8'));
     var overrideItem = JSON.parse(fs_1.default.readFileSync(path.join(__dirname, '..', '..', '..', 'config', file), 'utf-8'));
-    console.log(item, overrideItem);
     if (property) {
         item = item[property];
         overrideItem = overrideItem[property];
-        console.log('???', item, overrideItem);
     }
     if (file !== 'default.json') {
         try {
